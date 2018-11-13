@@ -31,6 +31,3 @@ run:
     EOF
     git remote -v
     git clone https://git.heroku.com/${app_name}.git
-    ls
-    container:login
-    ls
