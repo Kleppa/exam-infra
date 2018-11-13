@@ -29,5 +29,8 @@ run:
          password ${heroku_api_token}
      EOF
      export HEROKU_API_KEY=${heroku_api_token}
+     git clone https://github.com/heroku/{app_name}.git
+     heroku create
+     heroku container:push web
      heroku container:release web -a ${app_name}
-    echo  ${app_name}
+
