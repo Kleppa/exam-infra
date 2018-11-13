@@ -7,6 +7,7 @@ deploy_infra.pub
 credentials.yaml
 credentials_example.yml
 credentials.yml
+cred.yml
 .terraform
 
 # Created by https://www.gitignore.io/api/intellij
