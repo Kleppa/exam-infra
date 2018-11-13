@@ -27,7 +27,6 @@ run:
       machine git.heroku.com
           login ${heroku_email}
           password ${heroku_api_token}
-      machine container:login
 
       EOF
       git remote -v

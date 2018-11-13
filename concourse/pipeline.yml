@@ -18,8 +18,6 @@ jobs:
     file: monitoring-infra/concourse/java/task.yml
     input_mapping: {source: monitoring-app}
 
-
-
   - task: push_to_heroku
     file: monitoring-infra/concourse/heroku/push_master_to_heroku.yml
     input_mapping: {source: monitoring-app}
@@ -28,22 +26,35 @@ jobs:
       heroku_email: ((heroku_email))
       heroku_api_token: ((heroku_api_key))
 
-- name: build
+- name : set-up-registry
   plan:
-  - get: monitoring-app
   - get: monitoring-infra
-  - put: docker-image-app
-    params:
-      build: jar_file
+    - task: create-reg-on-heroku
+      file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
+      params:
+        app_name: ((heroku_app_name))
+        heroku_email: ((heroku_email))
+        heroku_api_token: ((heroku_api_key)
 
-- name: deploy-ci
-  plan:
-  - aggregate:
-    - get: monitoring-infra
-    - get: docker-image-app
-      trigger: true
-      passed: [build]
-    - task : exam-infra/concourse/java/docker/task.yml
+
+
+#- name: build
+#  plan:
+#  - get: monitoring-app
+#  - get: monitoring-infra
+#  - put: docker-image-app
+#    params:
+#      build: jar_file
+
+
+#- name: deploy-ci
+#  plan:
+#  - aggregate:
+#    - get: monitoring-infra
+#    - get: docker-image-app
+#      trigger: true
+#      passed: [build]
+#    - task : exam-infra/concourse/java/docker/task.yml
 
 - name: infra
   plan:
