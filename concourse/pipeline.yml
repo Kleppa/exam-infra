@@ -28,8 +28,10 @@ jobs:
 
 - name : set-up-registry
   plan:
-  - get: monitoring-infra
-  - get: monitoring-app
+  - aggregate:
+    - get: monitoring-app
+    - get: monitoring-infra
+
   - task: create-reg-on-heroku
     file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
     input_mapping: {source: monitoring-app}
