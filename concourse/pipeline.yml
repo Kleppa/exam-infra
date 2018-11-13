@@ -42,9 +42,9 @@ jobs:
   plan:
   - get: monitoring-app
   - get: monitoring-infra
-  - get: docker-image-app
+  - put: docker-image-app
     params:
-      build: jar_file
+      build: monitoring-app
 
 - name: deploy-ci
   plan:
