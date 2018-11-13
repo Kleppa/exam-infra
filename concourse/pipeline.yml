@@ -1,13 +1,24 @@
 jobs:
 # Replace params / app_name with your heroku app name
+#- name: publish
+#  public: true
+#  serial: true
+#  plan:
+#  - get: monitoring-app
+#    params:
+#      build:  ./
+
 - name: deploy-app
   plan:
   - aggregate:
     - get: monitoring-app
     - get: monitoring-infra
+
   - task: mvn_build
     file: monitoring-infra/concourse/java/task.yml
     input_mapping: {source: monitoring-app}
+
+
 
   - task: push_to_heroku
     file: monitoring-infra/concourse/heroku/push_master_to_heroku.yml
@@ -17,6 +28,22 @@ jobs:
       heroku_email: ((heroku_email))
       heroku_api_token: ((heroku_api_key))
 
+- name: build
+  plan:
+  - get: monitoring-app
+  - get: monitoring-infra
+  - put: docker-image-app
+    params:
+      build: jar_file
+
+- name: deploy-ci
+  plan:
+  - aggregate:
+    - get: monitoring-infra
+    - get: docker-image-app
+      trigger: true
+      passed: [build]
+    - task : exam-infra/concourse/java/docker/task.yml
 
 - name: infra
   plan:
@@ -54,3 +81,10 @@ resources:
       uri: git@github.com:Kleppa/exam-infra.git
       branch: master
       private_key: ((deploy_key_infra))
+resource:
+- name: docker-image-app
+  type: docker-image
+  source:
+    repository: registry.heroku.com/((heroku_app_name))/web
+    username: ((heroku_email))
+    password: ((heroku_api_key)
