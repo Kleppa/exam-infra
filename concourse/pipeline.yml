@@ -30,7 +30,6 @@ jobs:
   plan:
   - get: monitoring-infra
   - get: monitoring-app
-
   - task: create-reg-on-heroku
     file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
     input_mapping: {source: monitoring-app}

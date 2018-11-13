@@ -21,14 +21,12 @@ run:
   - -exc
   - |
     cat > /root/.netrc <<EOF
-    machine api.heroku.com
-        login ${heroku_email}
-        password ${heroku_api_token}
-    machine git.heroku.com
-        login ${heroku_email}
-        password ${heroku_api_token}
-
-    EOF
-    git remote -v
-    ls
-    git clone https://git.heroku.com/${app_name}.git
+     machine api.heroku.com
+         login ${heroku_email}
+         password ${heroku_api_token}
+     machine git.heroku.com
+         login ${heroku_email}
+         password ${heroku_api_token}
+     EOF
+     export HEROKU_API_KEY=${heroku_api_token}
+     heroku container:release web -a ${app_name}
