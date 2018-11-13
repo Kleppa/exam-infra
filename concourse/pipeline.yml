@@ -29,12 +29,16 @@ jobs:
 - name : set-up-registry
   plan:
   - get: monitoring-infra
-    - task: create-reg-on-heroku
-      file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
-      params:
-        app_name: ((heroku_app_name))
-        heroku_email: ((heroku_email))
-        heroku_api_token: ((heroku_api_key)
+  - get: monitoring-app
+
+  - task: create-reg-on-heroku
+    file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
+    input_mapping: {source: monitoring-app}
+
+    params:
+      app_name: ((heroku_app_name))
+      heroku_email: ((heroku_email))
+      heroku_api_token: ((heroku_api_key)
 
 
 

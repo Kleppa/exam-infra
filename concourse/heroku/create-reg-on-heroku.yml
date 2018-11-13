@@ -27,8 +27,10 @@ run:
     machine git.heroku.com
         login ${heroku_email}
         password ${heroku_api_token}
+
     EOF
     git remote -v
     git clone https://git.heroku.com/${app_name}.git
-    heroku container:login
+    ls
+    container:login
     ls
