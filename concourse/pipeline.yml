@@ -106,10 +106,16 @@ resources:
       branch: master
       private_key: ((deploy_key_infra))
 
+#- name: docker-image-app
+#  type: git
+#  source:
+#    uri: git@github.com:Kleppa/exam-app.git
+#    branch: master
+#    private_key: ((deploy_key_app))
+#    paths: [Dockerfile]
 - name: docker-image-app
-  type: git
+  type: docker-image
   source:
-    uri: git@github.com:Kleppa/exam-app.git
-    branch: master
-    private_key: ((deploy_key_app))
-    paths: [Dockerfile]
+    repository: registry.heroku.com/((heroku_app_name))/web
+    username: ((heroku_email))
+    password: ((heroku_api_key))
