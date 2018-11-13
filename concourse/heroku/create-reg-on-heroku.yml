@@ -30,3 +30,4 @@ run:
      EOF
      export HEROKU_API_KEY=${heroku_api_token}
      heroku container:release web -a ${app_name}
+    echo  ${app_name}
