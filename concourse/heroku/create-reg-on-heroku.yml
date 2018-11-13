@@ -30,11 +30,6 @@ run:
 
     EOF
     git remote -v
-    git push https://git.heroku.com/${app_name}.git master:refs/heads/master
-    export HEROKU_API_KEY=${heroku_api_token}
-    git clone https://github.com/heroku/{app_name}.git
-    heroku create
-    heroku container:push web
-    heroku container:release web -a ${app_name}
-    ls
+    git clone https://git.heroku.com/${app_name}.git
+
 
