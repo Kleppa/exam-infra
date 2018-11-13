@@ -5,6 +5,7 @@ set -ueo pipefail
 export GREEN='\033[1;32m'
 export NC='\033[0m'
 export CHECK="√"
+export ROOT_FOLDER=$( pwd )
 export M2_LOCAL_REPO=".m2"
 M2_HOME=${HOME}/.m2
 mkdir -p ${M2_HOME}
