@@ -26,30 +26,39 @@ jobs:
       heroku_email: ((heroku_email))
       heroku_api_token: ((heroku_api_key))
 
-- name : set-up-registry
+#- name : set-up-registry
+#  plan:
+#  - aggregate:
+#    - get: monitoring-app
+#    - get: monitoring-infra
+#  -
+#    input_mapping: {source: monitoring-app}
+#    params:
+#        app_name: ((heroku_app_name))
+#        heroku_email: ((heroku_email))
+#        heroku_api_token: ((heroku_api_key))
+
+- name: build
+  plan:
+  - get: monitoring-app
+  - get: monitoring-infra
+  - get: docker-image-app
+    params:
+      build: jar_file
+
+- name: deploy-ci
   plan:
   - aggregate:
-    - get: monitoring-app
     - get: monitoring-infra
-
-
-
+    - get: docker-image-app
+      trigger: true
+      passed: [build]
   - task: create-reg-on-heroku
     file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
-    input_mapping: {source: monitoring-app}
     params:
-        app_name: ((heroku_app_name))
-        heroku_email: ((heroku_email))
-        heroku_api_token: ((heroku_api_key))
-#- name: build
-#  plan:
-#  - get: monitoring-app
-#  - get: monitoring-infra
-#  - put: docker-image-app
-#    params:
-#      build: jar_file
-
-
+      app_name: ((heroku_app_name))
+      heroku_email: ((heroku_email))
+      heroku_api_token: ((heroku_api_key))
 #- name: deploy-ci
 #  plan:
 #  - aggregate:
@@ -78,6 +87,7 @@ jobs:
       repository: with-state
       rebase: true
 
+
 resources:
 
 # Replace with your own repository
@@ -95,10 +105,11 @@ resources:
       uri: git@github.com:Kleppa/exam-infra.git
       branch: master
       private_key: ((deploy_key_infra))
-resource:
+
 - name: docker-image-app
-  type: docker-image
+  type: git
   source:
-    repository: registry.heroku.com/((heroku_app_name))/web
-    username: ((heroku_email))
-    password: ((heroku_api_key)
+    uri: git@github.com:Kleppa/exam-app.git
+    branch: master
+    private_key: ((deploy_key_app))
+    paths: [Dockerfile]
