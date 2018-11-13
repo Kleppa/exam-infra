@@ -12,6 +12,10 @@ inputs:
 
 outputs:
   - name: jar-file
+  - path: .m2/
+
+caches:
+ - path: .m2/
 
 run:
   path: monitoring-infra/concourse/java/task.sh

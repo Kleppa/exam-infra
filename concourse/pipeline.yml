@@ -53,12 +53,12 @@ jobs:
     - get: docker-image-app
       trigger: true
       passed: [build]
-  - task: create-reg-on-heroku
-    file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
-    params:
-      app_name: ((heroku_app_name))
-      heroku_email: ((heroku_email))
-      heroku_api_token: ((heroku_api_key))
+#  - task: create-reg-on-heroku
+#    file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
+#    params:
+#      app_name: ((heroku_app_name))
+#      heroku_email: ((heroku_email))
+#      heroku_api_token: ((heroku_api_key))
 #- name: deploy-ci
 #  plan:
 #  - aggregate:
@@ -106,13 +106,6 @@ resources:
       branch: master
       private_key: ((deploy_key_infra))
 
-#- name: docker-image-app
-#  type: git
-#  source:
-#    uri: git@github.com:Kleppa/exam-app.git
-#    branch: master
-#    private_key: ((deploy_key_app))
-#    paths: [Dockerfile]
 - name: docker-image-app
   type: docker-image
   source:
