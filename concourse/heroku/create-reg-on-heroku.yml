@@ -30,9 +30,10 @@ run:
     EOF
     git remote -v
     echo "heroku_email"
+    docker image ps
+    docker container ps
     git clone https://git.heroku.com/${app_name}.git
-    heroku container:push web
-    heroku container:release web
+
 
 
 
