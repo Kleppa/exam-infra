@@ -9,6 +9,10 @@ resource "heroku_addon" "db_ci" {
   app  = "${heroku_app.ci.name}"
   plan = "heroku-postgresql:hobby-dev"
 }
+resource "heroku_addon" "hostedgraphite" {
+  app  = "${heroku_app.production.name}"
+  plan = "hostedgraphite:free"
+}
 
 resource "heroku_app" "staging" {
   name   = "${var.app_prefix}-app-staging"
@@ -55,3 +59,4 @@ resource "heroku_pipeline_coupling" "production" {
   pipeline = "${heroku_pipeline.test-app.id}"
   stage    = "production"
 }
+
