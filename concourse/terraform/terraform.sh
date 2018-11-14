@@ -20,6 +20,7 @@ print() {
 setup() {
     export DIR="$PWD"
     export HOSTEDGRAPHITE_APIKEY="${hostedgraphite_apikey}"
+    export GRAPHITE_HOST="${graphite_host}"
     export GITHUB_TOKEN="${github_token}"
     export HEROKU_API_KEY="${heroku_api_key}"
     export STATUSCAKE_APIKEY="${statuscake_api_key}"
