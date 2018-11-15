@@ -12,8 +12,7 @@ jobs:
       app_name: ((heroku_app_name))
       heroku_email: ((heroku_email))
       heroku_api_token: ((heroku_api_key))
-      hostedgraphite_apikey: ((hostedgraphite_apikey))
-      graphite_host: ((graphite_host))
+
 
 
 #  - task: push_to_heroku
@@ -37,12 +36,16 @@ jobs:
       - get: docker-image-app
       trigger: true
       passed: [build]
+#  - task: add-envs
+#    file:
   - task: create-reg
       file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
       params:
-        app_name: ((heroku_app_name))
-        heroku_api_token: ((heroku_api_key))
-        heroku_email: ((heroku_email))
+      app_name: ((heroku_app_name))
+      heroku_api_token: ((heroku_api_key))
+      heroku_email: ((heroku_email))
+      hostedgraphite_apikey: ((hostedgraphite_apikey))
+      graphite_host: ((graphite_host))
 
 
 
