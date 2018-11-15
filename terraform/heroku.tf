@@ -9,14 +9,7 @@ resource "heroku_addon" "db_ci" {
   app  = "${heroku_app.ci.name}"
   plan = "heroku-postgresql:hobby-dev"
 }
-resource "heroku_addon" "hostedgraphite" {
-  app  = "${heroku_app.production.name}"
-  plan = "hostedgraphite:free"
-}
-resource "heroku_addon" "hostedgraphite" {
-  app  = "${heroku_app.staging.name}"
-  plan = "hostedgraphite:free"
-}
+
 
 resource "heroku_addon" "hostedgraphite" {
   app  = "${heroku_app.ci.name}"
