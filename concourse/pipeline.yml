@@ -21,6 +21,7 @@ jobs:
   - get: monitoring-app
     trigger: true
   - get: monitoring-infra
+
   - task: mvn_build
     file: monitoring-infra/concourse/java/task.yml
     input_mapping: {source: monitoring-app}

@@ -1,5 +1,10 @@
 #!/bin/sh
 # we don't to anything with the artifact yet - we just want to build it.
+echo "${graphite_host}"
+echo "${hostedgraphite_apikey}"
+export GRAPHITE_HOST="${graphite_host}"
+export HOSTEDGRAPHITE_APIKEY="${hostedgraphite_apikey}"
+
 set -ueo pipefail
 
 export GREEN='\033[1;32m'
@@ -9,10 +14,6 @@ export ROOT_FOLDER=$( pwd )
 export M2_LOCAL_REPO=".m2"
 M2_HOME=${HOME}/.m2
 mkdir -p ${M2_HOME}
-echo "${graphite_host}"
-echo "${hostedgraphite_apikey}"
-export GRAPHITE_HOST="${graphite_host}"
-export HOSTEDGRAPHITE_APIKEY="${hostedgraphite_apikey}"
 
 M2_LOCAL_REPO="${ROOT_FOLDER}/.m2"
 
