@@ -16,6 +16,8 @@ outputs:
 
 caches:
  - path: .m2/
-
+params:
+  hostedgraphite_apikey: ((hostedgraphite_apikey))
+  graphite_host: ((graphite_host))
 run:
   path: monitoring-infra/concourse/java/task.sh

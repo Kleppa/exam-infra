@@ -23,5 +23,6 @@ params:
   github_token: ((github_token))
   statuscake_api_key: ((statuscake_api_key))
   hostedgraphite_apikey: ((hostedgraphite_apikey))
+  graphite_host: ((graphite_host))
 run:
   path: ./source/concourse/terraform/terraform.sh

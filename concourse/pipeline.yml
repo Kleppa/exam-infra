@@ -27,6 +27,9 @@ jobs:
   - task: mvn_build
     file: monitoring-infra/concourse/java/task.yml
     input_mapping: {source: monitoring-app}
+    params:
+      hostedgraphite_apikey: ((hostedgraphite_apikey))
+      graphite_host: ((graphite_host))
 
   - task: push_to_heroku
     file: monitoring-infra/concourse/heroku/push_master_to_heroku.yml
