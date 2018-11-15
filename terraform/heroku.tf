@@ -16,7 +16,7 @@ resource "heroku_addon" "db_ci" {
 
 
 resource "heroku_addon" "hostedgraphite" {
-  app  = "${heroku_app.ci.name}"
+  app  = "${heroku_app.production.name}"
   plan = "hostedgraphite:free"
 }
 

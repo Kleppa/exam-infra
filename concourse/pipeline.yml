@@ -38,7 +38,15 @@ jobs:
         trigger: true
         passed: [build]
 #  - task: add-envs
-#    file:
+  - task: set-env-vars
+    file: monitoring-infra/concourse/heroku/set-env-vars.yml
+      params:
+        app_name: ((heroku_app_name))
+        heroku_api_token: ((heroku_api_key))
+        heroku_email: ((heroku_email))
+        hostedgraphite_apikey: ((hostedgraphite_apikey))
+        graphite_host: ((graphite_host))
+
   - task: create-reg
     file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
     params:
@@ -47,8 +55,6 @@ jobs:
       heroku_email: ((heroku_email))
       hostedgraphite_apikey: ((hostedgraphite_apikey))
       graphite_host: ((graphite_host))
-
-
 
 - name: infra
   plan:
@@ -73,7 +79,6 @@ jobs:
 
 
 resources:
-
 - name: monitoring-app
   type: git
   source:
