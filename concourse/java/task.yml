@@ -17,6 +17,10 @@ outputs:
 caches:
  - path: .m2/
 params:
+  command:
+  directories:
+  cache: "false"
+  lock_timeout: 5m
   hostedgraphite_apikey: ((hostedgraphite_apikey))
   graphite_host: ((graphite_host))
 run:
