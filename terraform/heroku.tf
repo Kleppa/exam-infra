@@ -2,10 +2,6 @@
 resource "heroku_app" "ci" {
   name   = "${var.app_prefix}-app-ci"
   region = "eu"
-  config_vars {
-   GRAPHITE_HOST="${graphite_host}"
-   HOSTEDGRAPHITE_APIKEY="${hostedgraphite_apikey}"
-  }
 }
 
 # Create a database, and configure the app to use it
