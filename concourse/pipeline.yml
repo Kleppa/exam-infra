@@ -16,15 +16,15 @@ jobs:
       graphite_host: ((graphite_host))
 
 
-  - task: push_to_heroku
-    file: monitoring-infra/concourse/heroku/push_master_to_heroku.yml
-    input_mapping: {source: monitoring-app}
-    params:
-      app_name: ((heroku_app_name))
-      heroku_email: ((heroku_email))
-      heroku_api_token: ((heroku_api_key))
-      hostedgraphite_apikey: ((hostedgraphite_apikey))
-      graphite_host: ((graphite_host))
+#  - task: push_to_heroku
+#    file: monitoring-infra/concourse/heroku/push_master_to_heroku.yml
+#    input_mapping: {source: monitoring-app}
+#    params:
+#      app_name: ((heroku_app_name))
+#      heroku_email: ((heroku_email))
+#      heroku_api_token: ((heroku_api_key))
+#      hostedgraphite_apikey: ((hostedgraphite_apikey))
+#      graphite_host: ((graphite_host))
 
   - put: docker-image-app
     params:
