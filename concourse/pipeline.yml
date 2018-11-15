@@ -32,12 +32,6 @@ jobs:
       hostedgraphite_apikey: ((hostedgraphite_apikey))
       graphite_host: ((graphite_host))
 
-  - task: create-reg
-    file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
-    params:
-      app_name: ((heroku_app_name))
-      heroku_api_token: ((heroku_api_key))
-      heroku_email: ((heroku_email))
 
 
   - task: push_to_heroku
@@ -62,12 +56,12 @@ jobs:
       trigger: true
       passed: [build]
 
-
-
-#Før terraform har kjørt, vet man ikke hva GRAPHITE_HOST,
-# og HOSTEDGRAPHITE_APIKEY vil bli.
-# Samtidig trenger man å
-# sette disse verdien inn i miljø-variabler i Heroku via Terraform.
+  - task: create-reg
+    file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
+    params:
+      app_name: ((heroku_app_name))
+      heroku_api_token: ((heroku_api_key))
+      heroku_email: ((heroku_email))
 
 - name: infra
   plan:
@@ -93,7 +87,6 @@ jobs:
 
 resources:
 
-# Replace with your own repository
 - name: monitoring-app
   type: git
   source:
@@ -101,7 +94,6 @@ resources:
       branch: master
       private_key: ((deploy_key_app))
 
-# Replace with your own repository
 - name: monitoring-infra
   type: git
   source:
