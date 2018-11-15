@@ -26,4 +26,8 @@ run:
         password ${heroku_api_token}
     EOF
     export HEROKU_API_KEY=${heroku_api_token}
-    heroku container:push web -a ${app_name}  && heroku container:release web -a ${app_name}
+    
+          git remote -v
+          git push https://git.heroku.com/${app_name}.git master:refs/heads/master
+
+    heroku container:push web -a ${app_name} && heroku container:release web -a ${app_name}

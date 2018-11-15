@@ -1,21 +1,4 @@
 jobs:
-# Replace params / app_name with your heroku app name
-#- name: publish
-#  public: true
-#  serial: true
-#  plan:
-#  - get: monitoring-app
-#    params:
-#      build:  ./
-## change this
-#- name: deploy-app
-#  plan:
-#  - aggregate:
-#    - get: monitoring-app
-#    - get: monitoring-infra
-#
-
-
 - name: build
   plan:
   - get: monitoring-app
@@ -32,7 +15,12 @@ jobs:
       hostedgraphite_apikey: ((hostedgraphite_apikey))
       graphite_host: ((graphite_host))
 
-
+  - task: create-reg
+      file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
+      params:
+        app_name: ((heroku_app_name))
+        heroku_api_token: ((heroku_api_key))
+        heroku_email: ((heroku_email))
 
   - task: push_to_heroku
     file: monitoring-infra/concourse/heroku/push_master_to_heroku.yml
@@ -56,12 +44,7 @@ jobs:
       trigger: true
       passed: [build]
 
-  - task: create-reg
-    file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
-    params:
-      app_name: ((heroku_app_name))
-      heroku_api_token: ((heroku_api_key))
-      heroku_email: ((heroku_email))
+
 
 - name: infra
   plan:
