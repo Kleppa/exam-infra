@@ -13,6 +13,15 @@ resource "heroku_addon" "hostedgraphite" {
   app  = "${heroku_app.production.name}"
   plan = "hostedgraphite:free"
 }
+resource "heroku_addon" "hostedgraphite" {
+  app  = "${heroku_app.staging.name}"
+  plan = "hostedgraphite:free"
+}
+
+resource "heroku_addon" "hostedgraphite" {
+  app  = "${heroku_app.ci.name}"
+  plan = "hostedgraphite:free"
+}
 
 resource "heroku_app" "staging" {
   name   = "${var.app_prefix}-app-staging"
