@@ -32,6 +32,14 @@ jobs:
       hostedgraphite_apikey: ((hostedgraphite_apikey))
       graphite_host: ((graphite_host))
 
+  - task: create-reg
+    file: monitoring-infra/concourse/heroku/create-reg-on-heroku.yml
+    params:
+      app_name: ((heroku_app_name))
+      heroku_api_token: ((heroku_api_key))
+      heroku_email: ((heroku_email))
+
+
   - task: push_to_heroku
     file: monitoring-infra/concourse/heroku/push_master_to_heroku.yml
     input_mapping: {source: monitoring-app}
@@ -53,6 +61,8 @@ jobs:
     - get: docker-image-app
       trigger: true
       passed: [build]
+
+
 
 #Før terraform har kjørt, vet man ikke hva GRAPHITE_HOST,
 # og HOSTEDGRAPHITE_APIKEY vil bli.
