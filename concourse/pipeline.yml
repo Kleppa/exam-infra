@@ -14,6 +14,10 @@ jobs:
       heroku_api_token: ((heroku_api_key))
 
 
+  - put: docker-image-app
+    params:
+      build: jar-file
+
 
 #  - task: push_to_heroku
 #    file: monitoring-infra/concourse/heroku/push_master_to_heroku.yml
@@ -24,10 +28,6 @@ jobs:
 #      heroku_api_token: ((heroku_api_key))
 #      hostedgraphite_apikey: ((hostedgraphite_apikey))
 #      graphite_host: ((graphite_host))
-
-  - put: docker-image-app
-    params:
-      build: monitoring-app
 
 - name: deploy-ci
   plan:
