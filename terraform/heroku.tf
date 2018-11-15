@@ -15,15 +15,15 @@ resource "heroku_addon" "db_ci" {
 }
 
 
-resource "heroku_addon" "hostedgraphite" {
+resource "heroku_addon" "hostedgraphite-ci" {
   app  = "${heroku_app.ci.name}"
   plan = "hostedgraphite:free"
 }
-resource "heroku_addon" "hostedgraphite" {
+resource "heroku_addon" "hostedgraphite-staging" {
   app  = "${heroku_app.staging.name}"
   plan = "hostedgraphite:free"
 }
-resource "heroku_addon" "hostedgraphite" {
+resource "heroku_addon" "hostedgraphite-prod" {
   app  = "${heroku_app.production.name}"
   plan = "hostedgraphite:free"
 }
