@@ -27,4 +27,5 @@ run:
     EOF
     export HEROKU_API_KEY=${heroku_api_token}
 
-     heroku container:release web -a ${app_name}
+    heroku container:release web -a ${app_name}
+#    docker tag registry.heroku.com/${app_name}/web registry.heroku.com/pgr301-jwk-app-staging/web
