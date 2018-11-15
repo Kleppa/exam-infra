@@ -21,13 +21,13 @@ jobs:
   - get: monitoring-app
     trigger: true
   - get: monitoring-infra
-  - put: docker-image-app
-    params:
-      build: monitoring-app
   - task: mvn_build
     file: monitoring-infra/concourse/java/task.yml
     input_mapping: {source: monitoring-app}
     params:
+      app_name: ((heroku_app_name))
+      heroku_email: ((heroku_email))
+      heroku_api_token: ((heroku_api_key))
       hostedgraphite_apikey: ((hostedgraphite_apikey))
       graphite_host: ((graphite_host))
 
@@ -41,6 +41,9 @@ jobs:
       hostedgraphite_apikey: ((hostedgraphite_apikey))
       graphite_host: ((graphite_host))
 
+  - put: docker-image-app
+    params:
+      build: monitoring-app
 
 - name: deploy-ci
   plan:
