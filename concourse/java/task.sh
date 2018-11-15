@@ -9,7 +9,7 @@ export ROOT_FOLDER=$( pwd )
 export M2_LOCAL_REPO=".m2"
 M2_HOME=${HOME}/.m2
 mkdir -p ${M2_HOME}
-export HEROKU_API_KEY="${heroku_api_key}"
+export GRAPHITE_HOST="${graphite_host}"
 export HOSTEDGRAPHITE_APIKEY="${hostedgraphite_apikey}"
 
 M2_LOCAL_REPO="${ROOT_FOLDER}/.m2"
