@@ -13,7 +13,6 @@ inputs:
 outputs:
   - name: jar-file
 
-
 caches:
  - path: .m2/
 params:
