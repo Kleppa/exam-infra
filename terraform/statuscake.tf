@@ -1,5 +1,6 @@
 provider "statuscake" {
   username = "jarandwaagekleppagmailcom"
+//  you email
 }
 
 resource "statuscake_test" "production" {
